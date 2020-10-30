@@ -2,7 +2,6 @@ import cv2
 
 
 class OpenCVHelper:
-    show_pic = None
 
     @staticmethod
     def start_camera():
@@ -26,7 +25,7 @@ class OpenCVHelper:
                 break
 
         # Image saving
-        cv2.imwrite("images/temp_document.jpg", frame)
+        cv2.imwrite("temp_images/temp_document.jpg", frame)
 
         # Clean up
         camera.release()

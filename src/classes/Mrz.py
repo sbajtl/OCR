@@ -88,19 +88,11 @@ class Mrz:
                     cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
                     break
 
-        # show the output images
-        # cv2.imshow("Image", image)
+        # show the output temp_images
+        cv2.imshow("Image", image)
         # cv2.imshow("ROI", roi)
 
-        # Image saving
-        # cv2.imwrite("images/temp_roi.jpg", roi)
-
-        # load the example image and convert it to grayscale
-        # roi_image = cv2.imread("images/temp_roi.jpg")
-
         gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-
-        # cv2.imshow("Image", gray)
 
         # check to see if we should apply thresholding to preprocess the
         # image
@@ -115,16 +107,16 @@ class Mrz:
 
         # write the grayscale image to disk as a temporary file so we can
         # apply OCR to it
-        filename = "images/temp_gray.jpg"
+        filename = "temp_images/temp_gray.jpg"
         cv2.imwrite(filename, gray)
 
         # load the image as a PIL/Pillow image, apply OCR, and then delete
         # the temporary file
-        text = pytesseract.image_to_string(Image.open(filename))
+        text = pytesseract.image_to_string(Image.open(filename), lang="ocrb", config="--psm 4 --oem 3 -c tessedit_char_whitelist=-01234567890ABCDEFGHIJKLMNOPRSTUVWXYZ<:")
         # os.remove(filename)
         print(text)
 
-        # show the output images
+        # show the output temp_images
         # cv2.imshow("Image", image)
         cv2.imshow("Output", gray)
 
